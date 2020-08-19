@@ -4,8 +4,8 @@
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<link href="/css/test.css" rel="stylesheet"></link>
 	<link href="/css/reset.css" rel="stylesheet"></link>
+	<link href="/css/style.css" rel="stylesheet"></link>
 	<title>HomePage</title>
 	</head>
 	
@@ -17,7 +17,7 @@
 				</h2>
 			</div>
 		</header>
-
+		<div class="stable-design"></div>
 		<section class="section-index">
  				<div class="container">
 					<a  href="/account/create">Create Account</a>

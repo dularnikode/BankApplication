@@ -1,0 +1,32 @@
+.form-wrapper{
+    font-size:18px;
+    margin:50px 30px;
+    border:2px solid black;
+    box-shadow:10px 10px solid rgb(48, 46, 46);
+    padding:30px 50px;
+}
+
+.form-wrapper div {
+    height:70px;
+    width:50%;
+    float:left;
+    display:block;
+}
+
+.form-wrapper div input,select {
+    height:35px; 
+    width:170px;
+}
+.submit-button{
+    width:100%;
+    text-align:center;
+    display: block;
+}
+
+.submit-button input{
+    width:20%;
+    text-align:center;
+    height:50px;
+    background-color: rgb(112, 236, 112);
+    font-size: medium;
+}

@@ -18,7 +18,8 @@ body{
 
 section{
    padding:30px;
-  
+   width: 1200px;
+   margin:0 auto;
  }
 
 .clear{
@@ -37,6 +38,9 @@ section{
     text-align: center;
     font-size: 25px;
     padding: 30px 0;
+}
+.stable-design{
+    margin-top:90px;
 }
 
 
@@ -58,10 +62,20 @@ section{
 }
 .section-index{
     height:auto;
-    width:1200px;
-    margin:0 auto;
-    margin-top:90px;
     padding:0 100px;
 }
+
+.heading{
+    margin-top:10px;
+	font-size:25px;
+	height:70px;
+	width:100%;
+    text-align:center;
+    padding:20px;
+	background-color:skyblue;
+}
+
+
+
 
 
