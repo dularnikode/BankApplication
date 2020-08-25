@@ -3,6 +3,8 @@ package com.bank.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bank.dto.AmountTransaferRequest;
 import com.bank.dto.CreateAccountDto;
+import com.bank.dto.FilterParameterAccountDto;
 import com.bank.dto.SelfAmountTransferRequest;
 import com.bank.enums.AccountType;
 import com.bank.model.Account;
@@ -73,9 +76,11 @@ public class AccountController {
 	}
 	
 	@GetMapping("/viewAll")
-	public ModelAndView getAllAccountDetails(Pageable pageable) {
+	public ModelAndView getAllAccountDetails(@PathParam("minBalance") Double minBalance,Pageable pageable) {
 		try {
-			Page<Account> accounts = accountService.getAllAccountDetails(null, pageable);
+			
+			FilterParameterAccountDto filterParameterAccountDto =new FilterParameterAccountDto(minBalance);
+			Page<Account> accounts =accountService.getAllAccountDetails(filterParameterAccountDto, pageable);
 			Map<String, Object> map = new HashMap<>();
 			map.put("accounts", accounts.getContent());
 			map.put("noOfPages", accounts.getTotalPages());
@@ -90,12 +95,20 @@ public class AccountController {
 		}
 	}
 	
+	@GetMapping("/filter/viewAll")
+	public ModelAndView getFilterPage(Model model) {
+		return new ModelAndView("filterPage");
+	}
+	
+	@GetMapping("/viewAll/minBalance")
+	public ModelAndView getMinBalancePage(Model model) {
+		return new ModelAndView("minBalanceFilter"); 
+	}
 	
 	@GetMapping("/credit")
 	public ModelAndView getCreditAmountPage(Model model) {
 		return new ModelAndView("creditAmount");
 	}
-	
 
 	@PostMapping("/credit")
 	public ModelAndView depositeAmount(@RequestParam("bankEmployeeId") Long bankEmployeeId,
@@ -142,6 +155,7 @@ public class AccountController {
 		ModelAndView modelAndView = new ModelAndView("amountTransfer", map);
 		return modelAndView;
 	}
+	
 	
 	
 

@@ -34,6 +34,9 @@
 				<div class="container">
 						<a href="/account/transferAmount">Transfer Money</a>
 				</div>
+				<div class="container">
+						<a href="/account/filter/viewAll">Accounts Filter</a>
+				</div>
 				<div class="clear"></div>
 		</section>
 		
