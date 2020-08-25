@@ -29,6 +29,9 @@ public class AccountService {
 	@Autowired
 	private AccountMapper accountMapper;
 	
+	@Autowired
+	private KafkaQueueService kafkaQueueService;
+	
 	public Account createAccount(CreateAccountDto createAccountDto) {
 		log.info("request for create account : {}", createAccountDto);
 		Account account = accountMapper.createAccountDtoToAccount(createAccountDto);
@@ -76,6 +79,7 @@ public class AccountService {
 		String message = "request successfull for deposit amount" + selfAmountTransferRequest.getAmount()
 				+ " from account number " + selfAmountTransferRequest.getAmount();
 		log.info(message);
+		kafkaQueueService.sendMessage(message);
 	}
 	
 	private void withdrawAmountInternal(SelfAmountTransferRequest selfAmountTransferRequest) {
@@ -87,6 +91,7 @@ public class AccountService {
 		} else {
 			String message = "Account balance is not sufficient, account number: " + account.getAccountId();
 			log.info(message);
+			kafkaQueueService.sendMessage(message);
 		}
 	}
 	
@@ -98,8 +103,10 @@ public class AccountService {
 		String message = "request successfully for credit amount" + selfAmountTransferRequest.getAmount()
 				+ " from account number " + selfAmountTransferRequest.getFromAccountId();
 		log.info(message);
+		kafkaQueueService.sendMessage(message);
 	}
 
+	
 	private void creditAmountInternal(SelfAmountTransferRequest selfAmountTransferRequest) {
 		Account account = this.getAccount(selfAmountTransferRequest.getFromAccountId());
 		Double newBalance = account.getBalance() + selfAmountTransferRequest.getAmount();
@@ -126,9 +133,7 @@ public class AccountService {
 				+ " transfer from account number " + amountTransferRequest.getFromAccount() + " to account number "
 				+ amountTransferRequest.getToAccount();
 		log.info(message);
+		kafkaQueueService.sendMessage(message);
 	}
-	
-	
-	
-	
+
 }
