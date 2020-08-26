@@ -133,7 +133,7 @@ public class AccountController {
 		accountService.withdrawAmount(selfAmountTransferRequest);
 		Map<String, Object> map = new HashMap<>();
 		map.put("successMessage", "successfully withdraw amount " + amount + " from account number " + fromAccountId);
-		ModelAndView modelAndView = new ModelAndView("withdraw", map);
+		ModelAndView modelAndView = new ModelAndView("withdrawAmount", map);
 		return modelAndView;
 	}
 	
