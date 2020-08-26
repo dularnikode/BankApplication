@@ -32,7 +32,7 @@ public class AccountController {
 	@Autowired
 	private AccountService accountService;
 	
-	@GetMapping("")
+	@GetMapping()
 	public ModelAndView homePage(Model model) {
 		return new ModelAndView("index");
 	}

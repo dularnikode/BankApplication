@@ -10,12 +10,11 @@
 	<h1>withdraw from account</h1>
 	<font color="blue">${successMessage}</font>
 	<font color="red">${errorMessage}</font>
-	 <form action="/api/account/withdraw" method="post">
+	 <form action="/account/withdraw" method="post">
         account number : <input type="text" name="fromAccountId" />  <br/> 
         withdraw amount : <input type="number" name="amount" />  <br/>
         employee id :  <input type="number" name="bankEmployeeId" />  <br/> 
         <input type="submit" />
     </form>
-
 </body>
 </html>

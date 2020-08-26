@@ -10,7 +10,7 @@
 	<h1>Add balance</h1>
 	<font color="green">${successMessage}</font>
 	<font color="red">${errorMessage}</font>
-	 <form action="/api/account/credit" method="post">
+	 <form action="/account/credit" method="post">
         account number : <input type="text" name="fromAccountId" />  <br/> 
         credit amount : <input type="number" name="amount" />  <br/>
         employee id :  <input type="number" name="bankEmployeeId" />  <br/> 
