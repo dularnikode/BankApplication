@@ -13,6 +13,7 @@
           Account number : ${account.accountId} <br/>
           First Name : ${account.firstName} <br/>
           Last Name : ${account.lastName} <br/>
+          Age : ${account.age}<br/>
           Balance : ${account.balance} <br/>
           Account type : ${account.accountType} <br/>
           account creator : ${account.firstName}  ${account.lastName}<br/>

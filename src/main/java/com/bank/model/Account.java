@@ -32,6 +32,8 @@ public class Account {
 	private String firstName;
 
 	private String lastName;
+	
+	private int age;
 
 	private Double balance;
 
@@ -99,5 +101,13 @@ public class Account {
 	public void setWithdrawalLimitPerDay(Double withdrawalLimitPerDay) {
 		this.withdrawalLimitPerDay = withdrawalLimitPerDay;
 	}
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
 
 }

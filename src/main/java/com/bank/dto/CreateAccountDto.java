@@ -10,6 +10,8 @@ public class CreateAccountDto {
 	private String firstName;
 
 	private String lastName;
+	
+	private int age;
 
 	private Double initaleBalance;
 
@@ -35,6 +37,14 @@ public class CreateAccountDto {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
 
 	public Double getInitaleBalance() {
 		return initaleBalance;
@@ -73,11 +83,12 @@ public class CreateAccountDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CreateAccountDto(String firstName, String lastName, Double initaleBalance, AccountType accountType,
+	public CreateAccountDto(String firstName, String lastName,int age, Double initaleBalance, AccountType accountType,
 			Long accountCreatorId, Double withdrawalLimitPerDay) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.age = age;
 		this.initaleBalance = initaleBalance;
 		this.accountType = accountType;
 		this.accountCreatorId = accountCreatorId;

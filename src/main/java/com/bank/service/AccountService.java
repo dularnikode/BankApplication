@@ -135,5 +135,12 @@ public class AccountService {
 		log.info(message);
 		kafkaQueueService.sendMessage(message);
 	}
+	
+	public Page<Account> getAllAccountWhereAgeGreaterThan60AndIfCredited2000BalanceMoreThan5000(Pageable pageable) {
+		log.info("request for get all transaction where age of account holder is greater than 60, and if 2000 credited"
+				+ " than available balance become more than 5000");
+		return accountRepository.getAllAccountWhereAgeGreaterThan60AndIfCredited2000BalanceMoreThan5000(pageable);
+	}
+
 
 }

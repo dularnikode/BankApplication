@@ -44,12 +44,14 @@ public class AccountController {
 		
 	@PostMapping()
 	public ModelAndView createAccount(@RequestParam("firstName") String firstName,
-			@RequestParam("lastName") String lastName, @RequestParam("initaleBalance") Double initaleBalance,
+			@RequestParam("lastName") String lastName, 
+			@RequestParam("age") int age,
+			@RequestParam("initaleBalance") Double initaleBalance,
 			@RequestParam("accountType") AccountType accountType,
 			@RequestParam("accountCreatorId") Long accountCreatorId,
 			@RequestParam("withdrawalLimitPerDay") Double withdrawalLimitPerDay) {
 		try {
-			CreateAccountDto createAccountDto = new CreateAccountDto(firstName, lastName, initaleBalance, accountType,
+			CreateAccountDto createAccountDto = new CreateAccountDto(firstName, lastName,age, initaleBalance, accountType,
 					accountCreatorId, withdrawalLimitPerDay);
 
 			Account account = accountService.createAccount(createAccountDto);
@@ -94,6 +96,25 @@ public class AccountController {
 			return modelAndView;
 		}
 	}
+	
+	@GetMapping("/viewAll/ageGreaterThan60AndIfCredited2000BalanceMoreThan5000")
+	public ModelAndView getAllAccountWhereAgeGreaterThan60AndIfCredited2000BalanceMoreThan5000(Pageable pageable) {
+		try {
+			Page<Account> accounts = accountService.getAllAccountWhereAgeGreaterThan60AndIfCredited2000BalanceMoreThan5000(pageable);
+			Map<String, Object> map = new HashMap<>();
+			map.put("accounts", accounts.getContent());
+			map.put("noOfPages", accounts.getTotalPages());
+			map.put("currentPage", accounts.getPageable().getPageNumber());
+			ModelAndView modelAndView = new ModelAndView("accounts", map);
+			return modelAndView;
+		} catch (Exception e) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("errorMessage", e.getMessage());
+			ModelAndView modelAndView = new ModelAndView("accounts", map);
+			return modelAndView;
+		}
+	}
+
 	
 	@GetMapping("/filter/viewAll")
 	public ModelAndView getFilterPage(Model model) {

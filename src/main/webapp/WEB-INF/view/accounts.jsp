@@ -9,13 +9,14 @@
 </head>
 <body>
 
-<h1>accounts detail</h1><br/>
+<h1>Accounts Detail</h1><br/>
 
 	<table border="1" cellpadding="5" cellspacing="5">
 		<tr>
 			<th>Account number</th>
 			<th>First Name</th>
 			<th>Last Name</th>
+			<th>Age</th>
 			<th>Balance</th>
 			<th>Account type</th>
 			<th>Account Creator</th>
@@ -27,6 +28,7 @@
 				<td>${account.accountId}</td>
 				<td>${account.firstName}</td>
 				<td>${account.lastName}</td>
+				<td>${account.age}</td>
 				<td>${account.balance}</td>
 				<td>${account.accountType}</td>
 				<td>${account.firstName}${account.lastName}</td>

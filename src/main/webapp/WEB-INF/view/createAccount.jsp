@@ -37,6 +37,10 @@
 					<input type="text" name="lastName" />
 				</div>
 				<div>
+					<label>Age</label>
+					<input type="number" name="age" />
+				</div>
+				<div>
 					<label>Opening Balance:</label>
 					<input type="number" name="initaleBalance" />
 				</div>
