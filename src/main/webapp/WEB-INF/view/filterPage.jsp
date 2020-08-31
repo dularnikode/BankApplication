@@ -15,8 +15,8 @@
 		</li>
 		<li>
 			<h3>
-				<a href="/account/viewAll?sort=balance">view all account
-					sort by available balance</a>
+				<a href="/account/viewAll?sort=firstName,balance">view all account
+					Sorted by Name as well as by Available balance</a>
 			</h3>
 		</li>
 		<li>
