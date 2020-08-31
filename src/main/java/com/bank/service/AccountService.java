@@ -1,11 +1,14 @@
 package com.bank.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -139,8 +142,12 @@ public class AccountService {
 	public Page<Account> getAllAccountWhereAgeGreaterThan60AndIfCredited2000BalanceMoreThan5000(Pageable pageable) {
 		log.info("request for get all transaction where age of account holder is greater than 60, and if 2000 credited"
 				+ " than available balance become more than 5000");
-		return accountRepository.getAllAccountWhereAgeGreaterThan60AndIfCredited2000BalanceMoreThan5000(pageable);
+		List<Account> allAccounts =  accountRepository.getAllAccountWhereAgeGreaterThan60AndIfCredited2000BalanceMoreThan5000();
+		List<Account> streamFilterAccounts = allAccounts.stream().filter(a->a.getAge()>60 && a.getBalance()>3000).collect(Collectors.toList());
+		Page<Account> accWhereAgeGT60AndBalanceGT5000 = new PageImpl<Account>(streamFilterAccounts,pageable,streamFilterAccounts.size()); 
+		return accWhereAgeGT60AndBalanceGT5000;
 	}
+	
 
 
 }
