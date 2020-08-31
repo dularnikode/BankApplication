@@ -14,10 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bank.dto.AmountTransaferRequest;
-import com.bank.dto.CreateAccountDto;
 import com.bank.dto.FilterParameterAccountDto;
 import com.bank.dto.SelfAmountTransferRequest;
-import com.bank.mapper.AccountMapper;
 import com.bank.model.Account;
 import com.bank.repository.AccountRepository;
 
@@ -28,19 +26,15 @@ public class AccountService {
 	
 	@Autowired
 	private AccountRepository accountRepository;
-
-	@Autowired
-	private AccountMapper accountMapper;
 	
 	@Autowired
 	private KafkaQueueService kafkaQueueService;
 	
-	public Account createAccount(CreateAccountDto createAccountDto) {
-		log.info("request for create account : {}", createAccountDto);
-		Account account = accountMapper.createAccountDtoToAccount(createAccountDto);
-		account = accountRepository.save(account);
-		log.info("account created succesfully, account id : {}", account.getAccountId());
-		return account;
+	public Account createAccount(Account acc) {
+		log.info("request for create account : {}", acc);
+		acc= accountRepository.save(acc);
+		log.info("account created succesfully, account id : {}", acc.getAccountId());
+		return acc;
 	}
 	
 	public Account getAccount(String accountId) {

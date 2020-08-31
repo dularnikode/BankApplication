@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bank.dto.AmountTransaferRequest;
-import com.bank.dto.CreateAccountDto;
 import com.bank.dto.FilterParameterAccountDto;
 import com.bank.dto.SelfAmountTransferRequest;
-import com.bank.enums.AccountType;
 import com.bank.model.Account;
 import com.bank.service.AccountService;
 
@@ -43,18 +42,9 @@ public class AccountController {
 	}
 		
 	@PostMapping()
-	public ModelAndView createAccount(@RequestParam("firstName") String firstName,
-			@RequestParam("lastName") String lastName, 
-			@RequestParam("age") int age,
-			@RequestParam("initaleBalance") Double initaleBalance,
-			@RequestParam("accountType") AccountType accountType,
-			@RequestParam("accountCreatorId") Long accountCreatorId,
-			@RequestParam("withdrawalLimitPerDay") Double withdrawalLimitPerDay) {
+	public ModelAndView createAccount(@ModelAttribute Account accountDto) {
 		try {
-			CreateAccountDto createAccountDto = new CreateAccountDto(firstName, lastName,age, initaleBalance, accountType,
-					accountCreatorId, withdrawalLimitPerDay);
-
-			Account account = accountService.createAccount(createAccountDto);
+			Account account = accountService.createAccount(accountDto);
 			Map<String, Object> map = new HashMap<>();
 			map.put("account", account);
 			ModelAndView modelAndView = new ModelAndView("accountDetails", map);

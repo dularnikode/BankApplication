@@ -42,7 +42,7 @@
 				</div>
 				<div>
 					<label>Opening Balance:</label>
-					<input type="number" name="initaleBalance" />
+					<input type="number" name="balance" />
 				</div>
 				<div>
 					<label>Account Type :</label>
@@ -53,7 +53,7 @@
 				</div>
 				<div>
 					<label>Account Creator Id :</label>
-					<input type="number" name="accountCreatorId" />
+					<input type="number" name="accountCreator.id" />
 				</div>
 				<div>
 					<label>Withdraw Limit Per Day :</label>
