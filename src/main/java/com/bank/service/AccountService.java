@@ -31,18 +31,13 @@ public class AccountService {
 	private KafkaQueueService kafkaQueueService;
 	
 	public Account createAccount(Account acc) {
-		log.info("request for create account : {}", acc);
 		acc= accountRepository.save(acc);
-		log.info("account created succesfully, account id : {}", acc.getAccountId());
 		return acc;
 	}
 	
 	public Account getAccount(String accountId) {
-		log.info("request for get account details of account number: {}", accountId);
 		Optional<Account> opAccount = accountRepository.findByAccountId(accountId);
 		if (opAccount.isPresent()) {
-			log.info("get account details of account id: {} successfully :: account details  : {}", accountId,
-					opAccount.get());
 			return opAccount.get();
 		} else {
 			log.info("account not found for account number: {}", accountId);
@@ -54,28 +49,22 @@ public class AccountService {
 
 
 	public Page<Account> getAllAccountDetails(FilterParameterAccountDto filterAccountParameterDto, Pageable pageable) {
-		log.info("request for get all account details");
 		Page<Account> accounts;
 		if (filterAccountParameterDto != null) {
 			if (filterAccountParameterDto.getMinBalance() != null) {
 				accounts = accountRepository.findAllByMinBalance(filterAccountParameterDto.getMinBalance(), pageable);
-				log.info("successfully get all account details");
 				return accounts;
 			}
 		}
 		accounts = accountRepository.findAll(pageable);
-		log.info("successfully get all account details");
 		return accounts;
 	}
 	
 	
 	public void withdrawAmount(SelfAmountTransferRequest selfAmountTransferRequest) {
-		log.info("request iniate for deposite amount {} from account number {}", selfAmountTransferRequest.getAmount(),
-				selfAmountTransferRequest.getFromAccountId());
 		withdrawAmountInternal(selfAmountTransferRequest);
 		String message = "request successfull for deposit amount" + selfAmountTransferRequest.getAmount()
 				+ " from account number " + selfAmountTransferRequest.getAmount();
-		log.info(message);
 		kafkaQueueService.sendMessage(message);
 	}
 	
@@ -87,19 +76,16 @@ public class AccountService {
 			accountRepository.save(account);
 		} else {
 			String message = "Account balance is not sufficient, account number: " + account.getAccountId();
-			log.info(message);
 			kafkaQueueService.sendMessage(message);
 		}
 	}
 	
 	
 	public void creditAmount(SelfAmountTransferRequest selfAmountTransferRequest) {
-		log.info("request iniate for credit amount {} from account number {}", selfAmountTransferRequest.getAmount(),
-				selfAmountTransferRequest.getFromAccountId());
+
 		creditAmountInternal(selfAmountTransferRequest);
 		String message = "request successfully for credit amount" + selfAmountTransferRequest.getAmount()
 				+ " from account number " + selfAmountTransferRequest.getFromAccountId();
-		log.info(message);
 		kafkaQueueService.sendMessage(message);
 	}
 
@@ -115,10 +101,6 @@ public class AccountService {
 	@Transactional
 	public void transferAmount(AmountTransaferRequest amountTransferRequest) {
 
-		log.info("transaction request for amount {} transfer from account number {} to account number {}",
-				amountTransferRequest.getAmount(), amountTransferRequest.getFromAccount(),
-				amountTransferRequest.getToAccount());
-
 		SelfAmountTransferRequest withdrawRequest = new SelfAmountTransferRequest(amountTransferRequest.getAmount(),
 				amountTransferRequest.getFromAccount());
 		this.withdrawAmountInternal(withdrawRequest);
@@ -129,19 +111,14 @@ public class AccountService {
 		String message = "trasaction successfully for amount " + amountTransferRequest.getAmount()
 				+ " transfer from account number " + amountTransferRequest.getFromAccount() + " to account number "
 				+ amountTransferRequest.getToAccount();
-		log.info(message);
 		kafkaQueueService.sendMessage(message);
 	}
 	
 	public Page<Account> getAllAccountWhereAgeGreaterThan60AndIfCredited2000BalanceMoreThan5000(Pageable pageable) {
-		log.info("request for get all transaction where age of account holder is greater than 60, and if 2000 credited"
-				+ " than available balance become more than 5000");
 		List<Account> allAccounts =  accountRepository.getAllAccountWhereAgeGreaterThan60AndIfCredited2000BalanceMoreThan5000();
 		List<Account> streamFilterAccounts = allAccounts.stream().filter(a->a.getAge()>60 && a.getBalance()>3000).collect(Collectors.toList());
 		Page<Account> accWhereAgeGT60AndBalanceGT5000 = new PageImpl<Account>(streamFilterAccounts,pageable,streamFilterAccounts.size()); 
 		return accWhereAgeGT60AndBalanceGT5000;
 	}
 	
-
-
 }
