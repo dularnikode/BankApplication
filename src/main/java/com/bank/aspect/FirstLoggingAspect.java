@@ -23,13 +23,12 @@ public class FirstLoggingAspect {
 	@Before("com.bank.aspect.PointcutExpressions.forAllAccountServiceBeforeAfter()")
 	public void beforeAdviceAspect(JoinPoint theJoinPoint){
 		String method = theJoinPoint.getSignature().toShortString();
-		log.info(":::===>>>>> Request for service =>>{}",method);
+		log.info("@Before Advice::==>> Request for service =>>{}",method);
 	}
 	
 	@After("com.bank.aspect.PointcutExpressions.forAllAccountServiceBeforeAfter()")
 	public void afterAdviceAspect(JoinPoint theJoinPoint){
 		String method = theJoinPoint.getSignature().toShortString();
-		log.info(":::===>>>>> Request Completed for service =>> {}",method);
-	}
-	
+		log.info("@After Advice::==>> Request Completed for service =>> {}",method);
+	}	
 }
