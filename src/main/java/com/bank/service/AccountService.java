@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bank.dto.AmountTransaferRequest;
 import com.bank.dto.FilterParameterAccountDto;
 import com.bank.dto.SelfAmountTransferRequest;
+import com.bank.exception.BusinessValidationExcpetion;
 import com.bank.model.Account;
 import com.bank.repository.AccountRepository;
 
@@ -41,9 +42,8 @@ public class AccountService {
 			return opAccount.get();
 		} else {
 			log.info("account not found for account number: {}", accountId);
-			return null;
-		}
-		
+			throw new BusinessValidationExcpetion("Account Not found for account Id : "+accountId);
+		}	
 	}
 
 
@@ -77,6 +77,7 @@ public class AccountService {
 		} else {
 			String message = "Account balance is not sufficient, account number: " + account.getAccountId();
 			kafkaQueueService.sendMessage(message);
+			throw new BusinessValidationExcpetion(message);
 		}
 	}
 	

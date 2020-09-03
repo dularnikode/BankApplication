@@ -20,7 +20,7 @@ public interface AccountRepository extends JpaRepository<Account, String> {
 	@Query("select account from Account account where account.balance>= :minBalance")
 	public Page<Account> findAllByMinBalance(@Param("minBalance") Double minBalance, Pageable pageable);
 
-	@Query("select account from Account account where account.age>60 and account.balance> 3000")
+	@Query("select account from Account account")
 	public List<Account> getAllAccountWhereAgeGreaterThan60AndIfCredited2000BalanceMoreThan5000();
 
 }

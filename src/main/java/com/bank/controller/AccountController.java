@@ -40,13 +40,16 @@ public class AccountController {
 	public ModelAndView CreateAccountPage(Model model) {
 		return new ModelAndView("createAccount");
 	}
-		
+	
+	
+	
 	@PostMapping()
 	public ModelAndView createAccount(@ModelAttribute Account accountDto) {
 		try {
 			Account account = accountService.createAccount(accountDto);
 			Map<String, Object> map = new HashMap<>();
 			map.put("account", account);
+			
 			ModelAndView modelAndView = new ModelAndView("accountDetails", map);
 			return modelAndView;
 		} catch (Exception e) {
@@ -123,7 +126,7 @@ public class AccountController {
 
 	@PostMapping("/credit")
 	public ModelAndView depositeAmount(@RequestParam("bankEmployeeId") Long bankEmployeeId,
-			@RequestParam("amount") Double amount, @RequestParam("fromAccountId") String fromAccountId) {
+		@RequestParam("amount") Double amount, @RequestParam("fromAccountId") String fromAccountId) {
 		SelfAmountTransferRequest selfAmountTransferRequest = new SelfAmountTransferRequest(amount, fromAccountId);
 		accountService.creditAmount(selfAmountTransferRequest);
 		Map<String, Object> map = new HashMap<>();
